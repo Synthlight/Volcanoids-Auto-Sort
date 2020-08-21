@@ -11,11 +11,12 @@ namespace Auto_Sort {
     [BepInPlugin(UUID, "Auto-Sort Mod", "1.0.0.0")]
     [UsedImplicitly]
     public class AutoSortMod : BaseUnityPlugin {
-        private const string UUID = "com.auto-sort";
+        private const  string          UUID = "com.auto-sort";
         private static ManualLogSource logSource;
 
         public static Dictionary<string, int> itemSortOrders;
 
+        [UsedImplicitly]
         public void Awake() {
             logSource = Logger;
 
