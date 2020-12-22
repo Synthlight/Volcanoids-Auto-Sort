@@ -5,6 +5,7 @@ This is a mod to control/replace the way sorting is done in-game.
 - The online storage tab is auto-sorted by the same rules. (This is a virtual / aggregate view of the inventories you have. This doesn't change or move the actual items, just the display order.)
 - Player inventory "Stack" button rearranges items, compressing/restacking and ordering by the sort rules.
 - Online storage "Stack" rearranges items, compressing/restacking all the inventories connected to online storage. (Again, ordering by the sort rules.)
+  - This also prioritizes storage containers over the drill storage, and fills the drill storage last, if there's not enough room in regular storage.
 - Repair Packs are further sorted so the most damage one is listed first. This is because the game uses the first entry in your inventory when repairing.
 
 # Requirements
