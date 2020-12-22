@@ -23,11 +23,13 @@ namespace Auto_Sort.Patches {
         public static bool Prefix(ref int __result, ref InventoryItem __0, ref InventoryItem __1) {
             if (__0.Item == null || __0.Item.Name == null || __1.Item == null || __1.Item.Name == null) return true;
 
-            var item1Name = __0.Item.Name.Trim();
-            var item2Name = __1.Item.Name.Trim();
+            var item1Name = __0.Item.Name.Trim() + "::" + __0.Item.AssetId;
+            var item2Name = __1.Item.Name.Trim() + "::" + __1.Item.AssetId;
 
-            if (!AutoSortMod.itemSortOrders.ContainsKey(item1Name)) {
-                AutoSortMod.Log(LogLevel.Info, $"\"{__0.Item.Category.SortOrder}\": \"{item1Name}\",");
+            // Track unknown items we log so we only print it once.
+            if (!AutoSortMod.itemSortOrders.ContainsKey(item1Name) && !AutoSortMod.LOGGED_MISSING_ITEMS.Contains(item1Name)) {
+                AutoSortMod.Log(LogLevel.Info, $"Found unknown item: \"{item1Name}\"");
+                AutoSortMod.LOGGED_MISSING_ITEMS.Add(item1Name);
             }
 
             __result = AutoSortMod.itemSortOrders.TryGet(item1Name).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Name));

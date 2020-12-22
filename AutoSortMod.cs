@@ -14,7 +14,8 @@ namespace Auto_Sort {
         private const  string          UUID = "com.auto-sort";
         private static ManualLogSource logSource;
 
-        public static Dictionary<string, int> itemSortOrders;
+        public static          Dictionary<string, int> itemSortOrders;
+        public static readonly List<string>            LOGGED_MISSING_ITEMS = new List<string>();
 
         [UsedImplicitly]
         public void Awake() {
