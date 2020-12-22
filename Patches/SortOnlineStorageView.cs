@@ -8,14 +8,16 @@ namespace Auto_Sort.Patches {
     /// <summary>Overrides the ICompare for Online Storage, this results in overriding the sorted display.</summary>
     [HarmonyPatch]
     [UsedImplicitly]
-    public class InventoryOnlineSlotPanelUiPatch {
+    public class SortOnlineStorageView {
         [HarmonyTargetMethod]
         [UsedImplicitly]
         public static MethodBase TargetMethod() {
             return (from interfaceType in typeof(InventoryOnlineSlotPanelUi).GetInterfaces()
                     where interfaceType.Name.Contains("Compare")
                     select typeof(InventoryOnlineSlotPanelUi).GetInterfaceMap(interfaceType)
-                                                             .TargetMethods.First(info => info.Name.Contains("Compare"))).FirstOrDefault();
+                                                             .TargetMethods
+                                                             .First(info => info.Name.Contains("Compare"))
+                ).FirstOrDefault();
         }
 
         [HarmonyPrefix]
