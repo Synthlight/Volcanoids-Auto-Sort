@@ -45,6 +45,6 @@
 		</Reference>
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="SET MonoPath=C:\Program Files\Unity\Editor\Data\MonoBleedingEdge&#xD;&#xA;&quot;%25MonoPath%25\bin\mono.exe&quot; &quot;%25MonoPath%25\lib\mono\4.5\pdb2mdb.exe&quot; &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;copy &quot;$(OutDir)\*&quot; &quot;%25LOCALAPPDATA%25Low\Volcanoid\Volcanoids\Mods\&quot;&#xD;&#xA;copy &quot;$(PkgHarmonyX)\lib\netstandard2.0\*&quot; &quot;%25LOCALAPPDATA%25Low\Volcanoid\Volcanoids\Mods\&quot;&#xD;&#xA;" />
+		<Exec Command="SET MonoPath=C:\Program Files\Unity\Editor\Data\MonoBleedingEdge&#xD;&#xA;&quot;%25MonoPath%25\bin\mono.exe&quot; &quot;%25MonoPath%25\lib\mono\4.5\pdb2mdb.exe&quot; &quot;$(TargetPath)&quot;&#xD;&#xA;&#xD;&#xA;copy &quot;$(OutDir)\*&quot; &quot;%25LOCALAPPDATA%25Low\Volcanoid\Volcanoids\Mods\&quot;&#xD;&#xA;copy &quot;$(PkgHarmonyX)\lib\netstandard2.0\*&quot; &quot;%25LOCALAPPDATA%25Low\Volcanoid\Volcanoids\Mods\&quot;" />
 	</Target>
 </Project>
