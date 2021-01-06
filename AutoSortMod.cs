@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -14,8 +15,8 @@ namespace Auto_Sort {
         private const  string          UUID = "com.auto-sort";
         private static ManualLogSource logSource;
 
-        public static          Dictionary<string, int> itemSortOrders;
-        public static readonly List<string>            LOGGED_MISSING_ITEMS = new List<string>();
+        public static          Dictionary<GUID, int> itemSortOrders;
+        public static readonly List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
 
         [UsedImplicitly]
         public void Awake() {
@@ -37,31 +38,54 @@ namespace Auto_Sort {
             var sortFile = Path.Combine(Paths.ConfigPath, "sort-order.json");
 
             try {
-                string json = null;
-
                 if (File.Exists(sortFile)) {
-                    json = File.ReadAllText(sortFile);
-                }
+                    var json   = File.ReadAllText(sortFile);
+                    var config = JsonConvert.DeserializeObject<Config>(json);
 
-                if (json != null) {
-                    var list = JsonConvert.DeserializeObject<List<string>>(json);
-                    itemSortOrders = new Dictionary<string, int>();
-                    for (var i = 0; i < list.Count; i++) {
-                        itemSortOrders[list[i]] = i;
+                    if (config.savedSortOrder != null) {
+                        itemSortOrders = new Dictionary<GUID, int>();
+
+                        for (var i = 0; i < config.savedSortOrder.Count; i++) {
+                            itemSortOrders[config.savedSortOrder[i].AssetId] = i;
+                        }
                     }
                 }
             } catch (Exception e) {
                 Log(LogLevel.Error, e.Message);
             } finally {
-                if (itemSortOrders == null) {
-                    itemSortOrders = CreateSortOrder.Get();
+                var sortOrders = CreateSortOrder.Get();
 
-                    try {
-                        var json = JsonConvert.SerializeObject(itemSortOrders.Keys, Formatting.Indented);
-                        File.WriteAllText(sortFile, json);
-                    } catch (Exception e) {
-                        Log(LogLevel.Error, e.Message);
+                if (itemSortOrders == null) {
+                    itemSortOrders = new Dictionary<GUID, int>();
+                    foreach (var key in sortOrders.Keys) {
+                        itemSortOrders[key.AssetId] = sortOrders[key];
                     }
+                } else {
+                    var i = itemSortOrders.Count;
+
+                    // Add new GUIDs not in the loaded config.
+                    foreach (var key in sortOrders.Keys.Where(key => !itemSortOrders.ContainsKey(key.AssetId))) {
+                        itemSortOrders[key.AssetId] = i++;
+                    }
+                }
+
+                try {
+                    var config = new Config {
+                        version        = 1,
+                        savedSortOrder = new List<Item>(itemSortOrders.Count)
+                    };
+
+                    foreach (var item in from guid in itemSortOrders.Keys
+                                         from item in sortOrders.Keys
+                                         where item.AssetId == guid
+                                         select item) {
+                        config.savedSortOrder.Add(item);
+                    }
+
+                    var json = JsonConvert.SerializeObject(config, Formatting.Indented);
+                    File.WriteAllText(sortFile, json);
+                } catch (Exception e) {
+                    Log(LogLevel.Error, e.Message);
                 }
             }
         }

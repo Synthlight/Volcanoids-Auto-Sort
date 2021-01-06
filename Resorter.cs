@@ -4,6 +4,8 @@ using BepInEx.Logging;
 
 namespace Auto_Sort {
     public class Resorter {
+        private static readonly GUID REPAIR_KIT = GUID.Parse("1bf6d40a49d9e2148a2d2389a768f15f");
+
         private readonly List<ItemTemp> itemsToSort = new List<ItemTemp>();
 
         public void ExtractAllItemsToTemp(InventoryBase inventory, IInventorySlots inventorySlots) {
@@ -21,10 +23,10 @@ namespace Auto_Sort {
 
         public void ResortTempList() {
             itemsToSort.Sort((item1, item2) => {
-                var item1Name = item1.itemDefinition.Name.Trim() + "::" + item1.itemDefinition.AssetId;
-                var item2Name = item2.itemDefinition.Name.Trim() + "::" + item2.itemDefinition.AssetId;
+                var item1Id = item1.itemDefinition.AssetId;
+                var item2Id = item2.itemDefinition.AssetId;
 
-                if (item1Name == item2Name && item1Name == "Module repair kit::1bf6d40a49d9e2148a2d2389a768f15f") {
+                if (item1Id == item2Id && item1Id == REPAIR_KIT) {
                     try {
                         var healthStat = RuntimeAssetCache<CommonStats>.Instance.Health;
                         var health1    = item1.propertySet.TryGet(healthStat, out PropertyValue health1Prop) ? health1Prop.GetValueOrDefault(PropertyType.Float, 1f) : 1f;
@@ -36,7 +38,7 @@ namespace Auto_Sort {
                     }
                 }
 
-                return item1Name == item2Name ? 0 : AutoSortMod.itemSortOrders.TryGet(item1Name).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Name));
+                return item1Id == item2Id ? 0 : AutoSortMod.itemSortOrders.TryGet(item1Id).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Id));
             });
         }
 

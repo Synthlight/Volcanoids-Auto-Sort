@@ -25,16 +25,16 @@ namespace Auto_Sort.Patches {
         public static bool Prefix(ref int __result, ref InventoryItem __0, ref InventoryItem __1) {
             if (__0.Item == null || __0.Item.Name == null || __1.Item == null || __1.Item.Name == null) return true;
 
-            var item1Name = __0.Item.Name.Trim() + "::" + __0.Item.AssetId;
-            var item2Name = __1.Item.Name.Trim() + "::" + __1.Item.AssetId;
+            var item1Id = __0.Item.AssetId;
+            var item2Id = __1.Item.AssetId;
 
             // Track unknown items we log so we only print it once.
-            if (!AutoSortMod.itemSortOrders.ContainsKey(item1Name) && !AutoSortMod.LOGGED_MISSING_ITEMS.Contains(item1Name)) {
-                AutoSortMod.Log(LogLevel.Info, $"Found unknown item: \"{item1Name}\"");
-                AutoSortMod.LOGGED_MISSING_ITEMS.Add(item1Name);
+            if (!AutoSortMod.itemSortOrders.ContainsKey(item1Id) && !AutoSortMod.LOGGED_MISSING_ITEMS.Contains(item1Id)) {
+                AutoSortMod.Log(LogLevel.Info, $"Found unknown item: \"{item1Id}\"");
+                AutoSortMod.LOGGED_MISSING_ITEMS.Add(item1Id);
             }
 
-            __result = AutoSortMod.itemSortOrders.TryGet(item1Name).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Name));
+            __result = AutoSortMod.itemSortOrders.TryGet(item1Id).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Id));
             return false;
         }
     }

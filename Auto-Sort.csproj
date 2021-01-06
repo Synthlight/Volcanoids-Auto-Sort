@@ -8,6 +8,7 @@
     <Copyright>Copyright © 2020</Copyright>
     <Authors>Gregory</Authors>
     <Company>None</Company>
+    <RootNamespace>Auto_Sort</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Test\**" />
@@ -57,6 +58,6 @@
     </Reference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;C:\SteamLibrary\common\Volcanoids\BepInEx\plugins\&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;C:\SteamLibrary\common\Volcanoids\BepInEx\plugins\&quot;" />
+	<Exec Command="copy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;%25LOCALAPPDATA%25Low\Volcanoid\Volcanoids\Mods\&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;%25LOCALAPPDATA%25Low\Volcanoid\Volcanoids\Mods\&quot;" />
   </Target>
 </Project>
