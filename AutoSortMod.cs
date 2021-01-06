@@ -2,96 +2,106 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BepInEx;
-using BepInEx.Logging;
+using System.Reflection;
 using HarmonyLib;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Auto_Sort {
-    [BepInPlugin(UUID, "Auto-Sort Mod", "1.0.0.0")]
     [UsedImplicitly]
-    public class AutoSortMod : BaseUnityPlugin {
-        private const  string          UUID = "com.auto-sort";
-        private static ManualLogSource logSource;
+    public class AutoSortMod : GameMod {
+        public static           Dictionary<GUID, int> itemSortOrders;
+        public static readonly  List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
+        private static readonly Dictionary<Item, int> BASE_SORT_ORDERS     = CreateSortOrder.Get();
+        private static readonly string                CONFIG_FILE          = Path.Combine(AssemblyDirectory, "Auto-Sort.json");
 
-        public static          Dictionary<GUID, int> itemSortOrders;
-        public static readonly List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
-
-        [UsedImplicitly]
-        public void Awake() {
-            logSource = Logger;
-
-            Log(LogLevel.Info, "Auto-Sort loaded.");
+        public override void Load() {
+            Debug.Log("Auto-Sort loaded.");
 
             Init();
 
-            var harmony = new Harmony(UUID);
+            var harmony = new Harmony(GUID.Create().ToString());
             harmony.PatchAll();
 
             foreach (var patchedMethod in harmony.GetPatchedMethods()) {
-                Log(LogLevel.Info, $"Patched: {patchedMethod.DeclaringType?.FullName}:{patchedMethod}");
+                Debug.Log($"Patched: {patchedMethod.DeclaringType?.FullName}:{patchedMethod}");
             }
         }
 
-        private void Init() {
-            var sortFile = Path.Combine(Paths.ConfigPath, "sort-order.json");
+        public override void Unload() {
+        }
 
+        private static void Init() {
+            LoadConfig();
+
+            if (itemSortOrders == null) {
+                // Init `itemSortOrders` and copy all into it.
+                itemSortOrders = new Dictionary<GUID, int>();
+
+                foreach (var key in BASE_SORT_ORDERS.Keys) {
+                    itemSortOrders[key.guid] = BASE_SORT_ORDERS[key];
+                }
+            } else {
+                // `itemSortOrders` was loaded from a config. Add missing items into it.
+                var i = itemSortOrders.Count;
+
+                foreach (var key in BASE_SORT_ORDERS.Keys.Where(key => !itemSortOrders.ContainsKey(key.guid))) {
+                    itemSortOrders[key.guid] = i++;
+                }
+            }
+
+            SaveConfig();
+        }
+
+        private static void LoadConfig() {
             try {
-                if (File.Exists(sortFile)) {
-                    var json   = File.ReadAllText(sortFile);
+                if (File.Exists(CONFIG_FILE)) {
+                    var json   = File.ReadAllText(CONFIG_FILE);
                     var config = JsonConvert.DeserializeObject<Config>(json);
 
                     if (config.savedSortOrder != null) {
                         itemSortOrders = new Dictionary<GUID, int>();
 
                         for (var i = 0; i < config.savedSortOrder.Count; i++) {
-                            itemSortOrders[config.savedSortOrder[i].AssetId] = i;
+                            itemSortOrders[config.savedSortOrder[i].guid] = i;
                         }
                     }
                 }
             } catch (Exception e) {
-                Log(LogLevel.Error, e.Message);
-            } finally {
-                var sortOrders = CreateSortOrder.Get();
-
-                if (itemSortOrders == null) {
-                    itemSortOrders = new Dictionary<GUID, int>();
-                    foreach (var key in sortOrders.Keys) {
-                        itemSortOrders[key.AssetId] = sortOrders[key];
-                    }
-                } else {
-                    var i = itemSortOrders.Count;
-
-                    // Add new GUIDs not in the loaded config.
-                    foreach (var key in sortOrders.Keys.Where(key => !itemSortOrders.ContainsKey(key.AssetId))) {
-                        itemSortOrders[key.AssetId] = i++;
-                    }
-                }
-
-                try {
-                    var config = new Config {
-                        version        = 1,
-                        savedSortOrder = new List<Item>(itemSortOrders.Count)
-                    };
-
-                    foreach (var item in from guid in itemSortOrders.Keys
-                                         from item in sortOrders.Keys
-                                         where item.AssetId == guid
-                                         select item) {
-                        config.savedSortOrder.Add(item);
-                    }
-
-                    var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-                    File.WriteAllText(sortFile, json);
-                } catch (Exception e) {
-                    Log(LogLevel.Error, e.Message);
-                }
+                Debug.LogError(e.Message);
             }
         }
 
-        public static void Log(LogLevel level, string msg) {
-            logSource.Log(level, msg);
+        private static void SaveConfig() {
+            var config = new Config {
+                version        = 1,
+                savedSortOrder = new List<Item>(itemSortOrders.Count)
+            };
+
+            // Convert `itemSortOrders` (Dictionary<GUID, int>) into (List<Item>) to save.
+            foreach (var item in from guid in itemSortOrders.Keys
+                                 from item in BASE_SORT_ORDERS.Keys
+                                 where item.AssetId == guid.ToString()
+                                 select item) {
+                config.savedSortOrder.Add(item);
+            }
+
+            try {
+                var json = JsonConvert.SerializeObject(config, Formatting.Indented);
+                File.WriteAllText(CONFIG_FILE, json);
+            } catch (Exception e) {
+                Debug.LogError(e.Message);
+            }
+        }
+
+        private static string AssemblyDirectory {
+            get {
+                var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                var uri      = new UriBuilder(codeBase);
+                var path     = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
         }
     }
 }

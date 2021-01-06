@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
-using BepInEx.Logging;
 using HarmonyLib;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Auto_Sort.Patches {
     /// <summary>Overrides the ICompare for Online Storage, this results in overriding the sorted display.</summary>
@@ -30,7 +30,7 @@ namespace Auto_Sort.Patches {
 
             // Track unknown items we log so we only print it once.
             if (!AutoSortMod.itemSortOrders.ContainsKey(item1Id) && !AutoSortMod.LOGGED_MISSING_ITEMS.Contains(item1Id)) {
-                AutoSortMod.Log(LogLevel.Info, $"Found unknown item: \"{item1Id}\"");
+                Debug.LogWarning($"Found unknown item: \"{item1Id}\"");
                 AutoSortMod.LOGGED_MISSING_ITEMS.Add(item1Id);
             }
 

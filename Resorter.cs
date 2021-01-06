@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using BepInEx.Logging;
+using UnityEngine;
 
 namespace Auto_Sort {
     public class Resorter {
@@ -34,7 +34,7 @@ namespace Auto_Sort {
 
                         return health1.CompareTo(health2);
                     } catch (Exception e) {
-                        AutoSortMod.Log(LogLevel.Error, "Error sorting by durability:\n" + e);
+                        Debug.LogError("Error sorting by durability:\n" + e);
                     }
                 }
 

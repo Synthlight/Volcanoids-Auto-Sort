@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using BepInEx.Logging;
 using HarmonyLib;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -49,7 +48,7 @@ namespace Auto_Sort.Patches {
                     }
                 }
             } catch (Exception e) {
-                AutoSortMod.Log(LogLevel.Info, $"Error resorting: {e}");
+                Debug.LogError($"Error resorting: {e}");
             }
 
             return false;

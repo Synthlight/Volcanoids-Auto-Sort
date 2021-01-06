@@ -1,11 +1,16 @@
-﻿namespace Auto_Sort {
+﻿using Newtonsoft.Json;
+
+namespace Auto_Sort {
     public class Item {
-        public GUID AssetId { get; }
+        public string AssetId { get; }
+
+        [JsonIgnore]
+        public GUID guid => GUID.Parse(AssetId);
 
         /** For reference only. **/
         public string Name { get; }
 
-        public Item(GUID assetId, string name) {
+        public Item(string assetId, string name) {
             AssetId = assetId;
             Name    = name;
         }
