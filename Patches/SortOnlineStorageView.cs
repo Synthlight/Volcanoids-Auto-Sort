@@ -29,12 +29,12 @@ namespace Auto_Sort.Patches {
             var item2Id = __1.Item.AssetId;
 
             // Track unknown items we log so we only print it once.
-            if (!AutoSortMod.itemSortOrders.ContainsKey(item1Id) && !AutoSortMod.LOGGED_MISSING_ITEMS.Contains(item1Id)) {
+            if (!Plugin.itemSortOrders.ContainsKey(item1Id) && !Plugin.LOGGED_MISSING_ITEMS.Contains(item1Id)) {
                 Debug.LogWarning($"Found unknown item: \"{item1Id}\"");
-                AutoSortMod.LOGGED_MISSING_ITEMS.Add(item1Id);
+                Plugin.LOGGED_MISSING_ITEMS.Add(item1Id);
             }
 
-            __result = AutoSortMod.itemSortOrders.TryGet(item1Id).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Id));
+            __result = Plugin.itemSortOrders.TryGet(item1Id).CompareTo(Plugin.itemSortOrders.TryGet(item2Id));
             return false;
         }
     }

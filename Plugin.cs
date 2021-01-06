@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Auto_Sort {
     [UsedImplicitly]
-    public class AutoSortMod : GameMod {
+    public class Plugin : GameMod {
         public static           Dictionary<GUID, int> itemSortOrders;
         public static readonly  List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
         private static readonly Dictionary<Item, int> BASE_SORT_ORDERS     = CreateSortOrder.Get();
@@ -18,6 +18,8 @@ namespace Auto_Sort {
 
         public override void Load() {
             Debug.Log("Auto-Sort loaded.");
+
+            Assembly.LoadFrom(Path.Combine(AssemblyDirectory, "0Harmony.dll"));
 
             Init();
 

@@ -1,7 +1,7 @@
 ﻿# Volcanoids Auto-Sort Mod
 This is a mod to control/replace the way sorting is done in-game.
 
-- Sort order is changed to follow the order defined in `Auto-Sort.json`. (See [Configuration](#Configuration))
+- Sort order is changed to follow the order defined in `Auto-Sort.json`. (Assuming the file doesn't exist in the first place.) (See [Configuration](#Configuration))
 - The online storage tab is auto-sorted by the same rules. (This is a virtual / aggregate view of the inventories you have. This doesn't change or move the actual items, just the display order.)
 - Player inventory "Stack" button rearranges items, compressing/restacking and ordering by the sort rules.
 - Online storage "Stack" rearranges items, compressing/restacking all the inventories connected to online storage. (Again, ordering by the sort rules.)
@@ -10,7 +10,7 @@ This is a mod to control/replace the way sorting is done in-game.
 
 # Requirements
 - Volcanoids obviously.
-- [HarmonyX](https://github.com/BepInEx/HarmonyX). The dll is included with the release zip for convenience.
+- [Harmony](https://github.com/pardeike/Harmony). The dll is included with the release zip for convenience.
 
 # Installation
 - Extract the release to the Volcanoids mod folder (`%LOCALAPPDATA%Low\Volcanoid\Volcanoids\Mods`) so `Auto-Sort.dll` is placed like this: `%LOCALAPPDATA%Low\Volcanoid\Volcanoids\Mods\Auto-Sort.dll`.

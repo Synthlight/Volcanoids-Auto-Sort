@@ -38,7 +38,7 @@ namespace Auto_Sort {
                     }
                 }
 
-                return item1Id == item2Id ? 0 : AutoSortMod.itemSortOrders.TryGet(item1Id).CompareTo(AutoSortMod.itemSortOrders.TryGet(item2Id));
+                return item1Id == item2Id ? 0 : Plugin.itemSortOrders.TryGet(item1Id).CompareTo(Plugin.itemSortOrders.TryGet(item2Id));
             });
         }
 
