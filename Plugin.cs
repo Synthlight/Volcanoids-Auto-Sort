@@ -2,39 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using HarmonyLib;
+using Base_Mod;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Auto_Sort {
     [UsedImplicitly]
-    public class Plugin : GameMod {
+    public class Plugin : BaseGameMod {
+        protected override      string                ModName    { get; } = "Auto-Sort";
+        protected override      bool                  UseHarmony { get; } = true;
         public static           Dictionary<GUID, int> itemSortOrders;
         public static readonly  List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
         private static readonly Dictionary<Item, int> BASE_SORT_ORDERS     = CreateSortOrder.Get();
-        private static readonly string                CONFIG_FILE          = Path.Combine(AssemblyDirectory, "Auto-Sort.json");
 
-        public override void Load() {
-            Debug.Log("Auto-Sort loaded.");
-
-            Assembly.LoadFrom(Path.Combine(AssemblyDirectory, "0Harmony.dll"));
-
-            Init();
-
-            var harmony = new Harmony(GUID.Create().ToString());
-            harmony.PatchAll();
-
-            foreach (var patchedMethod in harmony.GetPatchedMethods()) {
-                Debug.Log($"Patched: {patchedMethod.DeclaringType?.FullName}:{patchedMethod}");
-            }
-        }
-
-        public override void Unload() {
-        }
-
-        private static void Init() {
+        protected override void Init() {
             LoadConfig();
 
             if (itemSortOrders == null) {
@@ -56,10 +38,10 @@ namespace Auto_Sort {
             SaveConfig();
         }
 
-        private static void LoadConfig() {
+        private void LoadConfig() {
             try {
-                if (File.Exists(CONFIG_FILE)) {
-                    var json   = File.ReadAllText(CONFIG_FILE);
+                if (File.Exists(ConfigFile)) {
+                    var json   = File.ReadAllText(ConfigFile);
                     var config = JsonConvert.DeserializeObject<Config>(json);
 
                     if (config.savedSortOrder != null) {
@@ -75,7 +57,7 @@ namespace Auto_Sort {
             }
         }
 
-        private static void SaveConfig() {
+        private void SaveConfig() {
             var config = new Config {
                 version        = 1,
                 savedSortOrder = new List<Item>(itemSortOrders.Count)
@@ -91,18 +73,9 @@ namespace Auto_Sort {
 
             try {
                 var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-                File.WriteAllText(CONFIG_FILE, json);
+                File.WriteAllText(ConfigFile, json);
             } catch (Exception e) {
                 Debug.LogError(e.Message);
-            }
-        }
-
-        private static string AssemblyDirectory {
-            get {
-                var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                var uri      = new UriBuilder(codeBase);
-                var path     = Uri.UnescapeDataString(uri.Path);
-                return Path.GetDirectoryName(path);
             }
         }
     }

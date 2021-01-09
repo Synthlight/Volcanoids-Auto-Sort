@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auto-Sort", "Auto-Sort.csproj", "{59301334-AA55-457F-A556-960028189CF1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base-Mod", "..\Base-Mod\Base-Mod.csproj", "{24308933-7AB3-4589-92DC-FF7A2870BCC0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{59301334-AA55-457F-A556-960028189CF1}.Debug|x64.Build.0 = Debug|x64
 		{59301334-AA55-457F-A556-960028189CF1}.Release|x64.ActiveCfg = Release|x64
 		{59301334-AA55-457F-A556-960028189CF1}.Release|x64.Build.0 = Release|x64
+		{24308933-7AB3-4589-92DC-FF7A2870BCC0}.Debug|x64.ActiveCfg = Debug|x64
+		{24308933-7AB3-4589-92DC-FF7A2870BCC0}.Debug|x64.Build.0 = Debug|x64
+		{24308933-7AB3-4589-92DC-FF7A2870BCC0}.Release|x64.ActiveCfg = Release|x64
+		{24308933-7AB3-4589-92DC-FF7A2870BCC0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
