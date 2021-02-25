@@ -24,6 +24,7 @@ namespace Auto_Sort {
 
             itemSortOrders.Add(new Item("75416daac1a28094bb7b6d8f2d690c99", "Sniper"), ++i);
             itemSortOrders.Add(new Item("ee1e9c8eb67fd2544982afda0ee6dcf2", "Sniper Ammo"), ++i);
+            itemSortOrders.Add(new Item("b24d9fd34202ae94abd0448b6d05516d", "Sniper Ammo T2"), ++i);
 
             itemSortOrders.Add(new Item("da137d36a12c54e46b3a132180b98bb1", "Hand mortar"), ++i);
             itemSortOrders.Add(new Item("721881fe35216b3468df695b3d23acda", "Mortar grenade"), ++i);
