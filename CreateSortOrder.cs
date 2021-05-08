@@ -33,9 +33,15 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("0670120db8e3ade4ba19a1928b19ce3d", "Gatling gun"), ++i);
             itemSortOrders.Add(new Item("0c215781eafd06a4ead9810f8800e13a", "Gatling ammo"), ++i);
 
+            // Melee
+            itemSortOrders.Add(new Item("06949b6bb6015ef4ea677324c635ddc1", "Cog Pickaxe"), ++i);
+            itemSortOrders.Add(new Item("6511d384b377b4042bf25610c296e813", "Circular Saw"), ++i);
+
             // Tools
+
             itemSortOrders.Add(new Item("a8be95e4cba7ba844821734d0780d719", "Hacking tool"), ++i);
             itemSortOrders.Add(new Item("3fbc57594592bee4ca5f261484b635b5", "Revive Tool"), ++i);
+            itemSortOrders.Add(new Item("bf164bd2a1500024cb1daf85b4118531", "Paint Tool"), ++i);
 
             itemSortOrders.Add(new Item("a2e86f35475b1294191575f698729f17", "Detonator"), ++i);
             itemSortOrders.Add(new Item("3b65509dc93e8bf4cbfb39454080f4f6", "Explosive"), ++i);
@@ -43,6 +49,10 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("850bf93472186b54d8ebfd87223989db", "Grenade"), ++i);
 
             itemSortOrders.Add(new Item("7dc960ed2a495bc41a29d47359dcbf37", "Medkit"), ++i);
+
+            itemSortOrders.Add(new Item("f1a5a5d0b8fcdbb4b9b24b9630258a67", "Dispenser"), ++i);
+            itemSortOrders.Add(new Item("0a3be365ab582fc498495fb3b1e5e460", "HealingDevice"), ++i);
+            itemSortOrders.Add(new Item("1fc2fb4280dbefd47a9e8c328feaca7c", "ArmorRepairDevice"), ++i);
 
             // Armor
             itemSortOrders.Add(new Item("e7111feccf1d6e649963eac87fddf20d", "Copper Armor Kit"), ++i);
@@ -246,6 +256,8 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("b40d3f9773a3a014c9ce1801b2696538", "Sniper Turret Module"), ++i);
             itemSortOrders.Add(new Item("a2a0d7a9fab7dee4f8b2f7a6d0912b5a", "Mortar Turret Module"), ++i);
             itemSortOrders.Add(new Item("4b17c7bc9d6c2ee46b7807292f26b432", "Gatling Turret Module"), ++i);
+
+            itemSortOrders.Add(new Item("TurretController", "Turret Controller"), ++i);
 
             // Doors
             itemSortOrders.Add(new Item("6edc5f9c55fb25c48a63ad047bd38b32", "Door module"), ++i);

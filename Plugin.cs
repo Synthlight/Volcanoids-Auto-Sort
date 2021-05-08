@@ -10,8 +10,8 @@ using UnityEngine;
 namespace Auto_Sort {
     [UsedImplicitly]
     public class Plugin : BaseGameMod {
-        protected override      string                ModName    { get; } = "Auto-Sort";
-        protected override      bool                  UseHarmony { get; } = true;
+        protected override      string                ModName    => "Auto Sort";
+        protected override      bool                  UseHarmony => true;
         public static           Dictionary<GUID, int> itemSortOrders;
         public static readonly  List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
         private static readonly Dictionary<Item, int> BASE_SORT_ORDERS     = CreateSortOrder.Get();
@@ -36,6 +36,8 @@ namespace Auto_Sort {
             }
 
             SaveConfig();
+
+            base.Init();
         }
 
         private void LoadConfig() {

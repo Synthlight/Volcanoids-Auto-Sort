@@ -12,7 +12,7 @@ namespace Auto_Sort {
             for (var i = 0; i < inventorySlots.Capacity; i++) {
                 if (inventorySlots.TryGetSlot(i, out var inventoryItem)) {
                     var itemTemp = new ItemTemp();
-                    inventoryItem.Stats.CopyTo(itemTemp.propertySet);
+                    itemTemp.propertySet.SetStats(inventoryItem.Stats);
                     itemTemp.amount         = inventory.Remove(null, inventoryItem.Item, inventoryItem.Stats, inventoryItem.Amount, i);
                     itemTemp.itemDefinition = inventoryItem.Item;
 
