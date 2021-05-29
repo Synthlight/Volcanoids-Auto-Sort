@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Auto_Sort {
     [UsedImplicitly]
     public class Plugin : BaseGameMod {
-        protected override      string                ModName    => "Auto Sort";
+        protected override      string                ModName    => "Auto-Sort";
         protected override      bool                  UseHarmony => true;
         public static           Dictionary<GUID, int> itemSortOrders;
         public static readonly  List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
@@ -42,8 +42,10 @@ namespace Auto_Sort {
 
         private void LoadConfig() {
             try {
-                if (File.Exists(ConfigFile)) {
-                    var json   = File.ReadAllText(ConfigFile);
+                var configFile = GetConfigFile();
+
+                if (File.Exists(configFile)) {
+                    var json   = File.ReadAllText(configFile);
                     var config = JsonConvert.DeserializeObject<Config>(json);
 
                     if (config.savedSortOrder != null) {
@@ -75,7 +77,7 @@ namespace Auto_Sort {
 
             try {
                 var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-                File.WriteAllText(ConfigFile, json);
+                File.WriteAllText(GetConfigFile(), json);
             } catch (Exception e) {
                 Debug.LogError(e.Message);
             }
