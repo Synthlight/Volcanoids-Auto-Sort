@@ -10,12 +10,11 @@ This is a mod to control/replace the way sorting is done in-game.
 
 # Requirements
 - Volcanoids obviously.
-- [Harmony](https://github.com/pardeike/Harmony). The dll is included with the release zip for convenience.
 
 # Installation
-- Extract the release to the Volcanoids mod folder (`%LOCALAPPDATA%Low\Volcanoid\Volcanoids\Mods`) so `Auto-Sort.dll` is placed like this: `%LOCALAPPDATA%Low\Volcanoid\Volcanoids\Mods\Auto-Sort.dll`.
+- See https://github.com/Synthlight/Volcanoids-Modding-Wiki/wiki#installing-mods
 
-# Configuration
+# Config
 - The first time Volcanoids is run with this mod installed, it will create a file called `Auto-Sort.json` in `%LOCALAPPDATA%Low\Volcanoid\Volcanoids\Mods`.
 - This file is a simple list of the items we resort, **in the order they will sort in-game**.
 - The list entries contain both the assetId & a name. The name is for reference only. Re-arrange as needed.
@@ -23,6 +22,3 @@ This is a mod to control/replace the way sorting is done in-game.
 - If the syntax is wrong, or there's any issue loading the file, it will be ignored and a new default one will be created.
 
 **To customize the sort order, just rearrange the items in the list**.
-
-# Un-installation
-- Just remove the dll from `%LOCALAPPDATA%Low\Volcanoid\Volcanoids\Mods`.
