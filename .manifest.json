@@ -1,4 +1,7 @@
 {
     "LoadGroup": 0,
-    "Version": "1.4"
+    "Version": "1.4",
+    "UniqueModId": "Auto-Sort",
+    "Title": "Auto-Sort (Better Sorting)",
+    "MultiplayerMode": 2
 }
