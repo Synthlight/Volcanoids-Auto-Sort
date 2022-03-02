@@ -101,6 +101,10 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("3d8201489a2dd1146b53543aadcfe418", "Drillship core 2"), ++i);
             itemSortOrders.Add(new Item("0bf8f15db1616fc49a8965909fc56e33", "Drillship core 3"), ++i);
 
+            itemSortOrders.Add(new Item("754bb9cef5e43e342b7cc746e63cc3e3", "Drillship core 1 (override)"), ++i);
+            itemSortOrders.Add(new Item("9474dd6f982e06d43a9f7c6ac6c737e3", "Drillship core 2 (override)"), ++i);
+            itemSortOrders.Add(new Item("74d276acce657d849a3545ac52375ebc", "Drillship core 3 (override)"), ++i);
+
             // Engines
             itemSortOrders.Add(new Item("ee7643bb8c3975640abff628bde9a9b7", "Engine 2"), ++i);
             itemSortOrders.Add(new Item("c01f451074ac3d04795d74be4e06fe91", "Engine 3"), ++i);
@@ -236,6 +240,8 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("7155d1834822b064a812b57eedb4fcac", "Coal Powerplant Tier 1"), ++i);
             itemSortOrders.Add(new Item("da53182cfeaac444db3c587904eb292f", "Coal Powerplant Tier 2"), ++i);
             itemSortOrders.Add(new Item("25c8f53e03229144f930b125870ef18e", "Coal Powerplant Tier 3"), ++i);
+            itemSortOrders.Add(new Item("a94225c3369a28446a5d185bdbb38d57", "Geothermal Powerplant Tier 1"), ++i);
+            itemSortOrders.Add(new Item("cd99b1154aa3d4b48a922c81877d528a", "Geothermal Powerplant Tier 3"), ++i);
             itemSortOrders.Add(new Item("e88f236cccc6b78488bcd03fcaa61d16", "Production Tier 1"), ++i);
             itemSortOrders.Add(new Item("ba98d563515d93a4f87264883c9e7507", "Production Tier 2"), ++i);
             itemSortOrders.Add(new Item("52d108d86d10cc044bc9503239eba930", "Production Tier 3"), ++i);
@@ -248,6 +254,10 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("38d294f9c4a553d4d947958321966f91", "Storage Tier 1"), ++i);
             itemSortOrders.Add(new Item("b0517105257182f49afcbe23088845de", "Storage Tier 2"), ++i);
             itemSortOrders.Add(new Item("86d7151630e909944991dbedc1998497", "Storage Tier 3"), ++i);
+
+            itemSortOrders.Add(new Item("8512e60bb61e48149baf3db9f4d937a9", "Generic Tier 1"), ++i);
+            itemSortOrders.Add(new Item("c5aee17ca93417444a9e222dad5c045c", "Generic Tier 2"), ++i);
+            itemSortOrders.Add(new Item("bb232f8c6d7df2140bfa7225d2bf51f1", "Generic Tier 3"), ++i);
 
             // Modules (Turrets)
             itemSortOrders.Add(new Item("3bf96763d5dfb564aad936a087cb614e", "Pistol Turret Module"), ++i);
@@ -268,6 +278,11 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("d4446b96f5a46494e8bed91cc40c06b7", "Hub refinery"), ++i);
             itemSortOrders.Add(new Item("00175574f3d8b8c41b2da96cd19cfc40", "Hub research"), ++i);
             itemSortOrders.Add(new Item("b4fbc6dbf6156184383895f886d838bd", "Hub scrap"), ++i);
+
+            itemSortOrders.Add(new Item("a985f4262370f4049a3943415f8fe308", "Production station (wide)"), ++i);
+            itemSortOrders.Add(new Item("2db0a28025acc3f439e680c86bcaa9fb", "Refinery station (wide)"), ++i);
+            itemSortOrders.Add(new Item("5bfc62bce5a139347ae57a7c2515bae1", "Research station (wide)"), ++i);
+            itemSortOrders.Add(new Item("b3a64a40be848f842b29510b14e80182", "Scrap station (wide)"), ++i);
 
             itemSortOrders.Add(new Item("7c32d187420152f4da3a79d465cbe87a", "Production station"), ++i);
             itemSortOrders.Add(new Item("3b35b8f4f39847945b9881e25bb01f5a", "Refinery station"), ++i);
@@ -310,6 +325,7 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("4dc894129cceae8459840de3a228985f", "Storage door"), ++i);
             itemSortOrders.Add(new Item("f87de61209b99e440a505d1e00fa1099", "Periscope"), ++i);
             itemSortOrders.Add(new Item("4c0e51c601608544fbd2e5a2b50f5bcc", "Pilot seat"), ++i);
+            itemSortOrders.Add(new Item("7f0eb007c3d86054dabe16a19fa0583d", "Turret controller"), ++i);
             itemSortOrders.Add(new Item("6398b069860ade44082f9d7b68e5ffb2", "Lever stand"), ++i);
             itemSortOrders.Add(new Item("2b016a075df938c4a8e20efbdcda209c", "Light"), ++i);
             itemSortOrders.Add(new Item("2259c7da81d447c4e9920cef56b51a81", "Long distance radio"), ++i);
