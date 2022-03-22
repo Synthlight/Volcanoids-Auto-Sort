@@ -10,6 +10,7 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("c88c68b3fc481bf44830246bc880d3aa", "Wrench"), ++i);
 
             // Guns'n'ammo
+            itemSortOrders.Add(new Item("e29b47f8c6c51304fa6a6de445d0990d", "Revolver"), ++i);
             itemSortOrders.Add(new Item("25ef235fa1e492441844c9fc34f5cb47", "Revolver ammo"), ++i);
             itemSortOrders.Add(new Item("55468dc2f73c108439216ba9093c549e", "Revolver high-power ammo"), ++i);
             itemSortOrders.Add(new Item("94b9be8c248e72048ba0618864aa0611", "Explosive revolver ammo"), ++i);
