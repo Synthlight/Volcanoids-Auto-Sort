@@ -7,8 +7,9 @@ namespace Auto_Sort {
 
             var i = -1;
 
+            itemSortOrders.Add(new Item("c88c68b3fc481bf44830246bc880d3aa", "Wrench"), ++i);
+
             // Guns'n'ammo
-            itemSortOrders.Add(new Item("e29b47f8c6c51304fa6a6de445d0990d", "Revolver"), ++i);
             itemSortOrders.Add(new Item("25ef235fa1e492441844c9fc34f5cb47", "Revolver ammo"), ++i);
             itemSortOrders.Add(new Item("55468dc2f73c108439216ba9093c549e", "Revolver high-power ammo"), ++i);
             itemSortOrders.Add(new Item("94b9be8c248e72048ba0618864aa0611", "Explosive revolver ammo"), ++i);
@@ -34,6 +35,7 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("0c215781eafd06a4ead9810f8800e13a", "Gatling ammo"), ++i);
 
             // Melee
+            itemSortOrders.Add(new Item("c36fdd64ef80d8648803c6ca6463fd63", "Pickaxe"), ++i);
             itemSortOrders.Add(new Item("06949b6bb6015ef4ea677324c635ddc1", "Cog Pickaxe"), ++i);
             itemSortOrders.Add(new Item("6511d384b377b4042bf25610c296e813", "Circular Saw"), ++i);
 
