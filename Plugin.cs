@@ -12,8 +12,9 @@ namespace Auto_Sort {
     public class Plugin : BaseGameMod {
         protected override      bool                  UseHarmony => true;
         public static           Dictionary<GUID, int> itemSortOrders;
-        public static readonly  List<GUID>            LOGGED_MISSING_ITEMS = new List<GUID>();
-        private static readonly Dictionary<Item, int> BASE_SORT_ORDERS     = CreateSortOrder.Get();
+        public static readonly  List<GUID>            LOGGED_MISSING_ITEMS   = new List<GUID>();
+        private static readonly Dictionary<Item, int> BASE_SORT_ORDERS       = CreateSortOrder.Get();
+        private const           int                   CURRENT_CONFIG_VERSION = 3;
 
         protected override void Init() {
             LoadConfig();
@@ -47,7 +48,7 @@ namespace Auto_Sort {
                     var json   = File.ReadAllText(configFile);
                     var config = JsonConvert.DeserializeObject<Config>(json);
 
-                    if (config.savedSortOrder != null) {
+                    if (config.version == CURRENT_CONFIG_VERSION && config.savedSortOrder != null) {
                         itemSortOrders = new Dictionary<GUID, int>();
 
                         for (var i = 0; i < config.savedSortOrder.Count; i++) {
@@ -62,7 +63,7 @@ namespace Auto_Sort {
 
         private void SaveConfig() {
             var config = new Config {
-                version        = 1,
+                version        = CURRENT_CONFIG_VERSION,
                 savedSortOrder = new List<Item>(itemSortOrders.Count)
             };
 

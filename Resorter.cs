@@ -8,7 +8,7 @@ namespace Auto_Sort {
 
         private readonly List<ItemTemp> itemsToSort = new List<ItemTemp>();
 
-        public void ExtractAllItemsToTemp(InventoryBase inventory, IInventorySlots inventorySlots) {
+        public void ExtractAllItemsToTemp(InventoryBase inventory, InventorySlotsBase inventorySlots) {
             for (var i = 0; i < inventorySlots.Capacity; i++) {
                 if (inventorySlots.TryGetSlot(i, out var inventoryItem)) {
                     var itemTemp = new ItemTemp();

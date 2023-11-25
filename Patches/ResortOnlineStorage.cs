@@ -13,38 +13,28 @@ namespace Auto_Sort.Patches {
         [HarmonyTargetMethod]
         [UsedImplicitly]
         public static MethodBase TargetMethod() {
-            return typeof(InventoryUiUtils).GetMethod(nameof(InventoryUiUtils.Restack), BindingFlags.Public | BindingFlags.Instance);
+            return typeof(InventoryControlUi).GetMethod(nameof(InventoryControlUi.Restack), BindingFlags.Public | BindingFlags.Instance);
         }
 
         /// <summary>Directs 'stack' where it needs to go.</summary>
         [HarmonyPrefix]
         [UsedImplicitly]
-        public static bool Prefix(ref InventoryUiUtils __instance, ref InventoryUiContext ___m_context) {
+        public static bool Prefix(ref InventoryControlUi __instance) {
             try {
                 var tab = __instance.Tab;
                 if (tab != null) { // Restack online storage.
                     if (tab is InventoryOnlineSlotPanelUi onlineTab) {
-                        var onlineCargo = onlineTab.GetCargo();
+                        var onlineCargo = onlineTab.m_cargo;
+                        var resorter    = new Resorter();
 
-                        if (onlineCargo.ValidateUser(___m_context.User)) {
-                            var resorter = new Resorter();
-
-                            foreach (var inventory in onlineCargo.Inventories) {
-                                if (inventory.TryCast(out IInventorySlots inventorySlots)) {
-                                    resorter.ExtractAllItemsToTemp(inventory, inventorySlots);
-                                }
-                            }
-
-                            resorter.ResortTempList();
-                            resorter.PutTempItemsInInventory(onlineCargo);
+                        foreach (var inventory in onlineCargo.Inventories) {
+                            resorter.ExtractAllItemsToTemp(inventory, inventory);
                         }
+
+                        resorter.ResortTempList();
+                        resorter.PutTempItemsInInventory(onlineCargo);
                     } else { // Restack single inventory.
-                        for (var i = 0; i < tab.InventoryCount; i++) {
-                            var inventoryView = tab[i];
-                            if (inventoryView.Inventory.TryCast(out IInventorySlots _) && inventoryView.Inventory.ValidateUser(___m_context.User)) {
-                                InventoryControl.Restack(inventoryView.Inventory);
-                            }
-                        }
+                        InventoryUiUtils.Restack(__instance.Tab, __instance.m_context.User);
                     }
                 }
             } catch (Exception e) {
@@ -62,7 +52,7 @@ namespace Auto_Sort.Patches {
         [HarmonyTargetMethod]
         [UsedImplicitly]
         public static MethodBase TargetMethod() {
-            return typeof(InventoryUiUtils).GetMethod("GetInfo", BindingFlags.NonPublic | BindingFlags.Instance);
+            return typeof(InventoryControlUi).GetMethod(nameof(InventoryControlUi.GetInfo), BindingFlags.Public | BindingFlags.Static);
         }
 
         [HarmonyPostfix]

@@ -11,6 +11,7 @@ namespace Auto_Sort {
 
             // Guns'n'ammo
             itemSortOrders.Add(new Item("e29b47f8c6c51304fa6a6de445d0990d", "Revolver"), ++i);
+            itemSortOrders.Add(new Item("7b675e7db68003a4e9dc81bdd9cb7d01", "Revolver"), ++i);
             itemSortOrders.Add(new Item("25ef235fa1e492441844c9fc34f5cb47", "Revolver ammo"), ++i);
             itemSortOrders.Add(new Item("55468dc2f73c108439216ba9093c549e", "Revolver high-power ammo"), ++i);
             itemSortOrders.Add(new Item("94b9be8c248e72048ba0618864aa0611", "Explosive revolver ammo"), ++i);
@@ -25,6 +26,7 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("52c87180c4ed42c40903a92b40b127f5", "SMG Ammo T2"), ++i);
 
             itemSortOrders.Add(new Item("75416daac1a28094bb7b6d8f2d690c99", "Sniper"), ++i);
+            itemSortOrders.Add(new Item("c7e359b8c04dfab4a92aceed52805dd5", "Enfield"), ++i);
             itemSortOrders.Add(new Item("ee1e9c8eb67fd2544982afda0ee6dcf2", "Sniper Ammo"), ++i);
             itemSortOrders.Add(new Item("b24d9fd34202ae94abd0448b6d05516d", "Sniper Ammo T2"), ++i);
 
@@ -34,6 +36,8 @@ namespace Auto_Sort {
 
             itemSortOrders.Add(new Item("0670120db8e3ade4ba19a1928b19ce3d", "Gatling gun"), ++i);
             itemSortOrders.Add(new Item("0c215781eafd06a4ead9810f8800e13a", "Gatling ammo"), ++i);
+            itemSortOrders.Add(new Item("58adab9d917be044b97b248738a6ce82", "Lewis gun"), ++i);
+            itemSortOrders.Add(new Item("1a904cbf27967d44e8d8614e2867419a", "Lewis ammo"), ++i);
 
             // Melee
             itemSortOrders.Add(new Item("c36fdd64ef80d8648803c6ca6463fd63", "Pickaxe"), ++i);
@@ -272,6 +276,11 @@ namespace Auto_Sort {
 
             itemSortOrders.Add(new Item("TurretController", "Turret Controller"), ++i);
 
+            // Modules (Drones)
+            itemSortOrders.Add(new Item("c7996bbb578dde34c9d80987dcf390a3", "Mining Drone Module"), ++i);
+            itemSortOrders.Add(new Item("79c0b8b872145854cb53ed59b459020f", "Support Drone Module"), ++i);
+            itemSortOrders.Add(new Item("931e863f377d25f42beb8137bc1b4252", "Turret Drone Module"), ++i);
+
             // Doors
             itemSortOrders.Add(new Item("6edc5f9c55fb25c48a63ad047bd38b32", "Door module"), ++i);
             itemSortOrders.Add(new Item("bffddb68717b5fb4fbfd2200ff6158db", "Window module"), ++i);
@@ -336,6 +345,7 @@ namespace Auto_Sort {
             itemSortOrders.Add(new Item("147bae0548753c047a4848555601fe5f", "BannerLarge"), ++i);
             itemSortOrders.Add(new Item("aa91b28ceaa9e5646b5b4fa451835124", "BannerSmall"), ++i);
             itemSortOrders.Add(new Item("81f42329261e3d948851ae235793ad10", "Bed"), ++i);
+            itemSortOrders.Add(new Item("c4097c5141470db448657c5930b8b359", "Spawn Tube"), ++i);
 
             return itemSortOrders;
         }

@@ -17,9 +17,9 @@ namespace Auto_Sort.Patches {
         [HarmonyPostfix]
         [UsedImplicitly]
         public static void Postfix(ref GameObject user, ref InventoryBase inventory) {
-            if (inventory.TryCast(out IInventorySlots inventorySlots) && inventory.ValidateUser(user)) {
+            if (inventory is InventorySlotsBase inventorySlotsBase) {
                 var resorter = new Resorter();
-                resorter.ExtractAllItemsToTemp(inventory, inventorySlots);
+                resorter.ExtractAllItemsToTemp(inventory, inventorySlotsBase);
                 resorter.ResortTempList();
                 resorter.PutTempItemsInInventory(inventory);
             }
