@@ -7,80 +7,80 @@ using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Auto_Sort {
-    [UsedImplicitly]
-    public class Plugin : BaseGameMod {
-        protected override      bool                  UseHarmony => true;
-        public static           Dictionary<GUID, int> itemSortOrders;
-        public static readonly  List<GUID>            LOGGED_MISSING_ITEMS   = new List<GUID>();
-        private static readonly Dictionary<Item, int> BASE_SORT_ORDERS       = CreateSortOrder.Get();
-        private const           int                   CURRENT_CONFIG_VERSION = 3;
+namespace Auto_Sort;
 
-        protected override void Init() {
-            LoadConfig();
+[UsedImplicitly]
+public class Plugin : BaseGameMod {
+    protected override      bool                  UseHarmony => true;
+    public static           Dictionary<GUID, int> itemSortOrders;
+    public static readonly  List<GUID>            LOGGED_MISSING_ITEMS   = [];
+    private static readonly Dictionary<Item, int> BASE_SORT_ORDERS       = CreateSortOrder.Get();
+    private const           int                   CURRENT_CONFIG_VERSION = 3;
 
-            if (itemSortOrders == null) {
-                // Init `itemSortOrders` and copy all into it.
-                itemSortOrders = new Dictionary<GUID, int>();
+    protected override void Init() {
+        LoadConfig();
 
-                foreach (var key in BASE_SORT_ORDERS.Keys) {
-                    itemSortOrders[key.guid] = BASE_SORT_ORDERS[key];
-                }
-            } else {
-                // `itemSortOrders` was loaded from a config. Add missing items into it.
-                var i = itemSortOrders.Count;
+        if (itemSortOrders == null) {
+            // Init `itemSortOrders` and copy all into it.
+            itemSortOrders = [];
 
-                foreach (var key in BASE_SORT_ORDERS.Keys.Where(key => !itemSortOrders.ContainsKey(key.guid))) {
-                    itemSortOrders[key.guid] = i++;
-                }
+            foreach (var key in BASE_SORT_ORDERS.Keys) {
+                itemSortOrders[key.guid] = BASE_SORT_ORDERS[key];
             }
+        } else {
+            // `itemSortOrders` was loaded from a config. Add missing items into it.
+            var i = itemSortOrders.Count;
 
-            SaveConfig();
-
-            base.Init();
+            foreach (var key in BASE_SORT_ORDERS.Keys.Where(key => !itemSortOrders.ContainsKey(key.guid))) {
+                itemSortOrders[key.guid] = i++;
+            }
         }
 
-        private void LoadConfig() {
-            try {
-                var configFile = GetConfigFile();
+        SaveConfig();
 
-                if (File.Exists(configFile)) {
-                    var json   = File.ReadAllText(configFile);
-                    var config = JsonConvert.DeserializeObject<Config>(json);
+        base.Init();
+    }
 
-                    if (config.version == CURRENT_CONFIG_VERSION && config.savedSortOrder != null) {
-                        itemSortOrders = new Dictionary<GUID, int>();
+    private void LoadConfig() {
+        try {
+            var configFile = GetConfigFile();
 
-                        for (var i = 0; i < config.savedSortOrder.Count; i++) {
-                            itemSortOrders[config.savedSortOrder[i].guid] = i;
-                        }
+            if (File.Exists(configFile)) {
+                var json   = File.ReadAllText(configFile);
+                var config = JsonConvert.DeserializeObject<Config>(json);
+
+                if (config.version == CURRENT_CONFIG_VERSION && config.savedSortOrder != null) {
+                    itemSortOrders = [];
+
+                    for (var i = 0; i < config.savedSortOrder.Count; i++) {
+                        itemSortOrders[config.savedSortOrder[i].guid] = i;
                     }
                 }
-            } catch (Exception e) {
-                Debug.LogError(e.Message);
             }
+        } catch (Exception e) {
+            Debug.LogError(e.Message);
+        }
+    }
+
+    private void SaveConfig() {
+        var config = new Config {
+            version        = CURRENT_CONFIG_VERSION,
+            savedSortOrder = new(itemSortOrders.Count)
+        };
+
+        // Convert `itemSortOrders` (Dictionary<GUID, int>) into (List<Item>) to save.
+        foreach (var item in from guid in itemSortOrders.Keys
+                             from item in BASE_SORT_ORDERS.Keys
+                             where item.AssetId == guid.ToString()
+                             select item) {
+            config.savedSortOrder.Add(item);
         }
 
-        private void SaveConfig() {
-            var config = new Config {
-                version        = CURRENT_CONFIG_VERSION,
-                savedSortOrder = new List<Item>(itemSortOrders.Count)
-            };
-
-            // Convert `itemSortOrders` (Dictionary<GUID, int>) into (List<Item>) to save.
-            foreach (var item in from guid in itemSortOrders.Keys
-                                 from item in BASE_SORT_ORDERS.Keys
-                                 where item.AssetId == guid.ToString()
-                                 select item) {
-                config.savedSortOrder.Add(item);
-            }
-
-            try {
-                var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-                File.WriteAllText(GetConfigFile(), json);
-            } catch (Exception e) {
-                Debug.LogError(e.Message);
-            }
+        try {
+            var json = JsonConvert.SerializeObject(config, Formatting.Indented);
+            File.WriteAllText(GetConfigFile(), json);
+        } catch (Exception e) {
+            Debug.LogError(e.Message);
         }
     }
 }
