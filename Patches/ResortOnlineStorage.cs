@@ -23,7 +23,7 @@ public class ResortOnlineStorage1 {
     public static bool Prefix(ref InventoryControlUi __instance) {
         try {
             var tabs = __instance.Tab;
-            if (tabs != null && tabs.TabKind == InventoryTabKind.Online) { // Restack online storage.
+            if (tabs != null) { // Restack online storage.
                 for (var i = 0; i < tabs.InventoryCount; i++) {
                     var tab = tabs[i];
                     if (tab is InventoryOnlineSlotPanelUi onlineTab) {
