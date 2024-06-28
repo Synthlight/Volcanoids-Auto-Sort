@@ -13,11 +13,11 @@ public class SortOnlineStorageView {
     [HarmonyTargetMethod]
     [UsedImplicitly]
     public static MethodBase TargetMethod() {
-        return (from interfaceType in typeof(InventoryOnlineSlotPanelUi).GetInterfaces()
+        return (from interfaceType in typeof(InventoryItemComparer).GetInterfaces()
                 where interfaceType.Name.Contains("Compare")
-                select typeof(InventoryOnlineSlotPanelUi).GetInterfaceMap(interfaceType)
-                                                         .TargetMethods
-                                                         .First(info => info.Name.Contains("Compare"))
+                select typeof(InventoryItemComparer).GetInterfaceMap(interfaceType)
+                                                    .TargetMethods
+                                                    .First(info => info.Name.Contains("Compare"))
             ).FirstOrDefault();
     }
 
